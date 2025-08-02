@@ -1,90 +1,120 @@
-
-import React from 'react';
-import { Film, Star, Users, Award } from 'lucide-react';
-import Image from 'next/image';
+"use client";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Film, Star, Users } from "lucide-react";
+import MotionCard from "./MotionCard";
 
 const AboutSection = () => {
-  const features = [
-    {
-      icon: Film,
-      title: "Legacy of Excellence",
-      description: " With years of expertise in filmmaking, Elohim Film Production has built strong relationships with top-tier celebrities, directors, and influencers. This industry insight and access are now fuelling the growth of The Endorsement Co. "
-    },
-    {
-      icon: Star,
-      title: "Creative Synergy",
-      description: " Leveraging the creative expertise of Elohim Film Production, The Endorsement Co. offers a unique blend of entertainment and marketing, producing high-quality content alongside influencer-driven campaigns."
-    },
-    {
-      icon: Users,
-      title: "Cross-Industry Power",
-      description: "The partnership between Elohim Film Production and The Endorsement Co. ensures seamless integration of film production, celebrity endorsements, and digital marketing, creating a holistic approach to brand development   "
-    }
-  ];
-
   return (
-    <section id="about" className="py-20 relative overflow-hidden">
-      <div className="absolute inset-0 bg-[url('/DeWatermark.ai.jpeg')] bg-cover bg-center bg-no-repeat opacity-85"></div>
-
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="text-center mb-16">
-          <div className="inline-block px-4 py-2 bg-merkurie-background/85 rounded-full text-merkurie-accent text-sm font-semibold mb-4">
-            About Us
+    <div className="min-h-screen bg-white py-16 px-4 sm:px-6" id="about">
+      <div className="max-w-7xl mx-auto">
+        {/* Top Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
+          <div className="flex items-center space-x-3">
+            <div className="w-3 h-3 rounded-full bg-v0yellow" />
+            <span className="text-base sm:text-lg font-semibold text-gray-700">About Us</span>
           </div>
-          <h2 className="text-4xl font-bold text-black mb-6 font-poppins">
-            Powered by <span className="text-merkurie-accent bg-merkurie-background/85 rounded-full px-4 py-2  ">Elohim Film Production Pvt. Ltd.</span>
-          </h2>
-          <p className="text-xl text-black/90 max-w-3xl mx-auto">
-            The Endorsement Co. is a premier celebrity and influencer marketing agency, founded as a subsidiary of Elohim 
-Film Production, a leading film production company. Together, we bridge the worlds of entertainment and 
-marketing, offering unparalleled access to celebrity talent and influencer networks.
-          </p>
+          <div className="space-y-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900">
+              Powered by{" "}
+              <span className="text-v0yellow">
+                Elohim Film Production Pvt. Ltd.
+              </span>
+            </h1>
+            <p className="text-base sm:text-lg text-gray-600 max-w-2xl">
+              The Endorsement Co. is a premier celebrity and influencer marketing agency, founded as a subsidiary of
+              Elohim Film Production, a leading film production company. Together, we bridge the worlds of entertainment
+              and marketing, offering unparalleled access to celebrity talent and influencer networks.
+            </p>
+            <Button className="bg-v0yellow text-black hover:bg-v0yellow/90 px-8 py-4 text-base sm:text-lg font-semibold rounded-lg sm:rounded-full shadow-md">
+              More About Us
+            </Button>
+          </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
-          {features.map((feature, index) => (
-            <div key={index} className="bg-merkurie-background/85 backdrop-blur-sm rounded-lg p-8 border border-white/10 hover:border-merkurie-accent/30 transition-all duration-300">
-              <div className="w-12 h-12 bg-merkurie-accent/20 rounded-lg flex items-center justify-center mb-6">
-                <feature.icon className="w-6 h-6 text-merkurie-accent" />
+        {/* Feature Cards Section */}
+        <div className="rounded-xl p-4 sm:p-6 md:p-10 mb-20">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <MotionCard>
+              <div className="flex flex-col items-start space-y-4">
+                <div className="w-14 h-14 rounded-full bg-v0yellow flex items-center justify-center">
+                  <Film className="w-8 h-8 text-black" />
+                </div>
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-800">
+                  Legacy of Excellence
+                </h3>
+                <p className="text-gray-700 text-base">
+                  With years of expertise in filmmaking, Elohim Film Production has built strong relationships with
+                  top-tier celebrities, directors, and influencers. This industry insight and access are now fuelling
+                  the growth of The Endorsement Co.
+                </p>
               </div>
-              <h3 className="text-xl font-semibold text-white mb-4">{feature.title}</h3>
-              <p className="text-white/70">{feature.description}</p>
-            </div>
-          ))}
+            </MotionCard>
+
+            <MotionCard>
+              <div className="flex flex-col items-start space-y-4">
+                <div className="w-14 h-14 rounded-full bg-v0yellow flex items-center justify-center">
+                  <Star className="w-8 h-8 text-black" />
+                </div>
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-800">
+                  Creative Synergy
+                </h3>
+                <p className="text-gray-700 text-base">
+                  Leveraging the creative expertise of Elohim Film Production, The Endorsement Co. offers a unique blend
+                  of entertainment and marketing, producing high-quality content alongside influencer-driven campaigns.
+                </p>
+              </div>
+            </MotionCard>
+
+            <MotionCard>
+              <div className="flex flex-col items-start space-y-4">
+                <div className="w-14 h-14 rounded-full bg-v0yellow flex items-center justify-center">
+                  <Users className="w-8 h-8 text-black" />
+                </div>
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-800">
+                  Cross-Industry Power
+                </h3>
+                <p className="text-gray-700 text-base">
+                  The partnership between Elohim Film Production and The Endorsement Co. ensures seamless integration of
+                  film production, celebrity endorsements, and digital marketing, creating a holistic approach to brand
+                  development.
+                </p>
+              </div>
+            </MotionCard>
+          </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h3 className="text-2xl font-bold text-black">Our Story</h3>
-            <div className="w-40 h-1 bg-merkurie-accent mb-4"></div>
-            <p className="text-black/70 mb-4">
-              Born from the creative powerhouse of Elohim Film Production, The Endorsement Co. bridges
-              the gap between authentic storytelling and strategic brand marketing. Our parent company&#39;s
-              legacy in film production gives us unparalleled access to talent and industry insights.
+        {/* Our Story Section */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+          <div className="bg-v0yellow text-black rounded-lg p-6 sm:p-8 md:p-12 shadow-md">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
+              Our Story
+            </h2>
+            <p className="text-base sm:text-lg mb-4">
+              Born from the creative powerhouse of Elohim Film Production, The Endorsement Co. bridges the gap between
+              authentic storytelling and strategic brand marketing. Our parent company&apos;s legacy in film production
+              gives us unparalleled access to talent and industry insights.
             </p>
-            <p className="text-black/70">
-              Our unique position in the entertainment ecosystem allows us to create campaigns that
-              feel natural, engaging, and drive real business impact for brands across FMCG, fashion,
-              technology, automotive, and beyond.
+            <p className="text-base sm:text-lg">
+              Our unique position in the entertainment ecosystem allows us to create campaigns that feel natural,
+              engaging, and drive real business impact for brands across FMCG, fashion, technology, automotive, and
+              beyond.
             </p>
           </div>
-          <div className="relative">
+
+          <div className="relative w-full h-64 sm:h-80 md:h-96 rounded-lg overflow-hidden shadow-lg">
             <Image
-              src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=600&h=400&fit=crop"
+              src="/aboutus1.png"
               alt="Film production behind the scenes"
-              className="rounded-lg shadow-xl"
-              width={600}
-              height={400}
-              style={{ objectFit: 'cover' }}
+              layout="fill"
+              objectFit="cover"
+              className="rounded-lg"
             />
-            <div className="absolute -bottom-4 -right-4 bg-merkurie-accent text-merkurie-background px-4 py-2 rounded-lg font-semibold">
-              <Award className="w-4 h-4 inline mr-2" />
-              Industry Leaders
-            </div>
+            <div className="absolute -bottom-4 -right-4 bg-v0yellow text-black px-4 py-2 rounded-lg font-semibold flex items-center gap-2 shadow-md" />
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

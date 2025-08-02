@@ -22,7 +22,7 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-    title: "Merkurie Digital Canvas",
+    title: "The Endorsement Co.",
     description: "Digital agency creating innovative web solutions",
 }
 

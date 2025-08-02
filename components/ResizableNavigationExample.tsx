@@ -1,3 +1,5 @@
+// 
+
 "use client";
 import React, { useState } from "react";
 import {
@@ -37,7 +39,17 @@ const ResizableNavigationExample = () => {
             {/* Desktop Navigation */}
             <NavBody>
                 <NavbarLogo />
-                <NavItems items={navigationItems} />
+                <div className="hidden md:flex items-center space-x-8">
+                    {navigationItems.map((item, idx) => (
+                        <a
+                            key={idx}
+                            href={item.link}
+                            className="text-white text-sm font-medium"
+                        >
+                            {item.name}
+                        </a>
+                    ))}
+                </div>
                 <NavbarButton variant="merkurie">
                     Book Consultation
                 </NavbarButton>
@@ -79,4 +91,4 @@ const ResizableNavigationExample = () => {
     );
 };
 
-export default ResizableNavigationExample; 
+export default ResizableNavigationExample;
