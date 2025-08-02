@@ -12,7 +12,7 @@ import ContactSection from '@/components/ContactSection'
 export default function Home() {
     return (
         <div className="min-h-screen bg-merkurie-background">
-            <ResizableNavigationExample />
+            
             {/* Add padding-top to account for fixed navbar */}
             <div className="pt-24">
                 <HeroSection />
@@ -20,8 +20,8 @@ export default function Home() {
                 <ServicesSection />
                 <WhyChooseSection />
                 <IndustriesSection />
-                <ProcessSection />
                 <TeamSection />
+                <ProcessSection />
                 <PortfolioSection />
                 <ContactSection />
             </div>

@@ -7,6 +7,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryClientProvider } from "@/components/providers/react-query-provider"
+import ResizableNavigationExample from "@/components/ResizableNavigationExample"
 
 const inter = Inter({
     subsets: ["latin"],
@@ -38,6 +39,7 @@ export default function RootLayout({
                     <TooltipProvider>
                         <Toaster />
                         <Sonner />
+                        <ResizableNavigationExample />
                         {children}
                     </TooltipProvider>
                 </ReactQueryClientProvider>
