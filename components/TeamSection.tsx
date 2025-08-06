@@ -219,7 +219,7 @@ export default function TeamSection() {
                         height: "220px",
                         borderRadius: "50%",
                         top: "50px",
-                        left: "40px",
+                        left: "30px",
                       }}
                     ></div>
 

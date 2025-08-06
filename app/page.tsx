@@ -8,6 +8,7 @@ import ProcessSection from '@/components/ProcessSection'
 import TeamSection from '@/components/TeamSection'
 import PortfolioSection from '@/components/PortfolioSection'
 import ContactSection from '@/components/ContactSection'
+import FooterSection from '@/components/footer'
 
 export default function Home() {
     return (
@@ -24,6 +25,7 @@ export default function Home() {
                 <ProcessSection />
                 <PortfolioSection />
                 <ContactSection />
+                <FooterSection />
             </div>
         </div>
     )
