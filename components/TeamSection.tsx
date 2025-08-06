@@ -194,7 +194,7 @@ export default function TeamSection() {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-7xl mx-auto"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-6 lg:gap-8 max-w-7xl mx-auto"
         >
           {teamMembers.map((member, index) => (
             <motion.div
@@ -205,10 +205,8 @@ export default function TeamSection() {
             >
               <motion.div  className="relative mb-4">
                 <Card
-                  className="relative bg-gray-900 border-0 shadow-xl group-hover:shadow-2xl transition-all duration-500"
+                  className="relative bg-gray-900 border-0 shadow-xl group-hover:shadow-2xl transition-all duration-500 w-full max-w-[300px] h-[300px] mx-auto"
                   style={{
-                    width: "300px",
-                    height: "300px",
                     borderRadius: "24px",
                   }}
                 >
@@ -217,11 +215,11 @@ export default function TeamSection() {
                     <div
                       className="absolute bg-yellow-400 z-10"
                       style={{
-                        width: "180px",
-                        height: "180px",
+                        width: "220px",
+                        height: "220px",
                         borderRadius: "50%",
-                        top: "80px",
-                        left: "60px",
+                        top: "50px",
+                        left: "30px",
                       }}
                     ></div>
 
