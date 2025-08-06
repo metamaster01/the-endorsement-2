@@ -110,7 +110,7 @@ export default function TeamSection() {
       rotateY: 0,
       transition: {
         duration: 0.6,
-        ease: [0.25, 0.25, 0.25, 0.75],
+        ease: "easeInOut" as const,
       },
     },
   }
@@ -203,7 +203,7 @@ export default function TeamSection() {
               whileHover="hover"
               className="flex flex-col items-center group"
             >
-              <motion.div variants={hoverVariants} className="relative mb-4">
+              <motion.div  className="relative mb-4">
                 <Card
                   className="relative bg-gray-900 border-0 shadow-xl group-hover:shadow-2xl transition-all duration-500"
                   style={{
