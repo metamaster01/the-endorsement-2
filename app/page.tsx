@@ -9,6 +9,7 @@ import TeamSection from '@/components/TeamSection'
 import PortfolioSection from '@/components/PortfolioSection'
 import ContactSection from '@/components/ContactSection'
 import FooterSection from '@/components/footer'
+import CelebritySection from "@/components/CelebritySection"
 
 export default function Home() {
     return (
@@ -19,6 +20,7 @@ export default function Home() {
                 <HeroSection />
                 <AboutSection />
                 <ServicesSection />
+                < CelebritySection/>
                 <WhyChooseSection />
                 <IndustriesSection />
                 <TeamSection />
