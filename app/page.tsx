@@ -13,10 +13,7 @@ import CelebritySection from "@/components/CelebritySection"
 
 export default function Home() {
     return (
-        <div className="min-h-screen bg-merkurie-background">
-            
-            {/* Add padding-top to account for fixed navbar */}
-            <div className="pt-24">
+        <div className="min-h-screen overflow-x-hidden">
                 <HeroSection />
                 <AboutSection />
                 <ServicesSection />
@@ -28,7 +25,6 @@ export default function Home() {
                 <PortfolioSection />
                 <ContactSection />
                 <FooterSection />
-            </div>
         </div>
     )
 } 
