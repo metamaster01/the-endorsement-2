@@ -54,7 +54,7 @@ export default function ContactSection() {
     }
   }
 
-  const whatsappNumber = "9198881554403" // 91 (India) + 98881554403
+  const whatsappNumber = "9730733996" // 91 (India) + 98881554403
   const whatsappText = encodeURIComponent("Hello! I would like to discuss a celebrity/influencer consultation.")
 
   return (
