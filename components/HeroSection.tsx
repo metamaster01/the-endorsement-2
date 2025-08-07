@@ -1,153 +1,86 @@
 "use client"
-
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from "framer-motion"
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Play } from 'lucide-react';
+import { ArrowRight, Play, Film } from 'lucide-react';
 import { cn } from "@/lib/utils"
-import StatisticsBadge from './StatisticsBadge';
-
-// Animated geometric shapes component
-function ElegantShape({
-  className,
-  delay = 0,
-  width = 400,
-  height = 100,
-  rotate = 0,
-  gradient = "from-white/[0.08]",
-}: {
-  className?: string
-  delay?: number
-  width?: number
-  height?: number
-  rotate?: number
-  gradient?: string
-}) {
-  return (
-    <motion.div
-      initial={{
-        opacity: 0,
-        y: -150,
-        rotate: rotate - 15,
-      }}
-      animate={{
-        opacity: 1,
-        y: 0,
-        rotate: rotate,
-      }}
-      transition={{
-        duration: 2.4,
-        delay,
-        ease: [0.23, 0.86, 0.39, 0.96],
-        opacity: { duration: 1.2 },
-      }}
-      className={cn("absolute", className)}
-    >
-      <motion.div
-        animate={{
-          y: [0, 15, 0],
-        }}
-        transition={{
-          duration: 12,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "easeInOut",
-        }}
-        style={{
-          width,
-          height,
-        }}
-        className="relative"
-      >
-        <div
-          className={cn(
-            "absolute inset-0 rounded-full",
-            "bg-gradient-to-r to-transparent",
-            gradient,
-            "backdrop-blur-[2px] border-2 border-white/[0.15]",
-            "shadow-[0_8px_32px_0_rgba(255,255,255,0.1)]",
-            "after:absolute after:inset-0 after:rounded-full",
-            "after:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent_70%)]",
-          )}
-        />
-      </motion.div>
-    </motion.div>
-  )
-}
+// Assuming StatisticsBadge is a separate component, not provided in the original snippet.
+// If it's not needed or not defined, you might remove its import.
+// import StatisticsBadge from './StatisticsBadge';
 
 const HeroSection = () => {
+  const [isSectionHovered, setIsSectionHovered] = useState(false); // New state for section hover
+
   const fadeUpVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0 },
   }
 
   return (
-    <section id="home" className="relative min-h-screen bg-gradient-to-br from-merkurie-background to-merkurie-surface overflow-hidden flex items-center justify-center">
-      {/* Enhanced background with animated shapes */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-merkurie-accent/[0.05] via-transparent to-merkurie-coral/[0.05] blur-3xl" />
-
-        {/* Animated geometric shapes */}
-        <div className="absolute inset-0 overflow-hidden">
-          <ElegantShape
-            delay={0.3}
-            width={600}
-            height={140}
-            rotate={12}
-            gradient="from-merkurie-accent/[0.15]"
-            className="left-[-10%] md:left-[-5%] top-[15%] md:top-[20%]"
-          />
-
-          <ElegantShape
-            delay={0.5}
-            width={500}
-            height={120}
-            rotate={-15}
-            gradient="from-merkurie-coral/[0.15]"
-            className="right-[-5%] md:right-[0%] top-[70%] md:top-[75%]"
-          />
-
-          <ElegantShape
-            delay={0.4}
-            width={300}
-            height={80}
-            rotate={-8}
-            gradient="from-merkurie-teal/[0.15]"
-            className="left-[5%] md:left-[10%] bottom-[5%] md:bottom-[10%]"
-          />
-
-          <ElegantShape
-            delay={0.6}
-            width={200}
-            height={60}
-            rotate={20}
-            gradient="from-merkurie-accent/[0.20]"
-            className="right-[15%] md:right-[20%] top-[10%] md:top-[15%]"
-          />
-
-          <ElegantShape
-            delay={0.7}
-            width={150}
-            height={40}
-            rotate={-25}
-            gradient="from-merkurie-teal/[0.15]"
-            className="left-[20%] md:left-[25%] top-[5%] md:top-[10%]"
-          />
+    <section
+      id="home"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      onMouseEnter={() => setIsSectionHovered(true)} // Set hover state on mouse enter
+      onMouseLeave={() => setIsSectionHovered(false)} // Reset hover state on mouse leave
+    >
+      {/* Background: Vibrant yellow gradient with dark black shade, changes on hover */}
+      <div
+        className="absolute inset-0 bg-cover bg-center transition-all duration-500 ease-in-out" // Added transition
+        style={{
+          backgroundImage: isSectionHovered
+            ? "url('/image6.png')" // Image on hover
+            : "url('/b22625d1a84ca020da898b20de76efb1cde1293c.png')" // Default image
+        }}
+      ></div>
+      {/* Top-right corner: Small floating box with "500+ Celebrity Partners" */}
+      <motion.div
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.8, duration: 0.5 }}
+        className="absolute top-8 right-8 z-20 hidden md:block"
+      >
+        <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 text-white text-sm flex flex-col items-center gap-2">
+          <span className="font-semibold">500+ Celebrity Partners</span>
+          <div className="flex -space-x-2 overflow-hidden">
+            <img
+              className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
+              src="/placeholder.svg?height=32&width=32"
+              alt="Celebrity Avatar 1"
+            />
+            <img
+              className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
+              src="/placeholder.svg?height=32&width=32"
+              alt="Celebrity Avatar 2"
+            />
+            <img
+              className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
+              src="/placeholder.svg?height=32&width=32"
+              alt="Celebrity Avatar 3"
+            />
+          </div>
         </div>
-
-        {/* Original decorative dots */}
-        <div className="absolute top-0 left-0 w-full h-full opacity-10">
-          <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-merkurie-accent rounded-full"></div>
-          <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-merkurie-coral rounded-full"></div>
-          <div className="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 bg-merkurie-teal rounded-full"></div>
-        </div>
-      </div>
-
-
-
+      </motion.div>
+      {/* Imagery: Left side - DSLR Camera */}
+      <motion.img
+        initial={{ opacity: 0, x: -100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.9, duration: 0.6 }}
+        src="/image1.png"
+        alt="Hand holding DSLR camera"
+        className="absolute left-0 top-0 w-[200px] md:w-[400px] lg:w-[500px] z-0 opacity-70 md:opacity-100"
+      />
+      {/* Imagery: Right side - Megaphone */}
+      <motion.img
+        initial={{ opacity: 0, x: 100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 1.0, duration: 0.6 }}
+        src="/image2.png"
+        alt="Hand holding megaphone"
+        className="absolute right-0 top-0 md:top-1/2 md:-translate-y-1/2 w-[200px] md:w-[400px] lg:w-[500px] z-0 opacity-70 md:opacity-100"
+      />
       {/* Centered Content */}
       <div className="relative z-10 container mx-auto px-6 text-center">
         <div className="max-w-4xl mx-auto space-y-8">
-
           {/* Celebrity Badge Above Main Heading */}
           <motion.div
             variants={fadeUpVariants}
@@ -156,12 +89,11 @@ const HeroSection = () => {
             transition={{ delay: 0.2 }}
             className="mb-6"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.05] border border-white/[0.1] backdrop-blur-sm">
-              <div className="w-2 h-2 bg-merkurie-accent rounded-full animate-pulse"></div>
-              <span className="text-sm font-medium text-white/70 tracking-wide">Elohim Film Production Legacy</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-400 border border-yellow-500">
+              <div className="w-2 h-2 bg-black rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium text-black tracking-wide">Elohim Film Production Legacy</span>
             </div>
           </motion.div>
-
           {/* Main Heading */}
           <motion.div
             variants={fadeUpVariants}
@@ -170,16 +102,21 @@ const HeroSection = () => {
             transition={{ delay: 0.3 }}
           >
             <h1 className="text-4xl sm:text-6xl md:text-8xl font-extrabold leading-tight font-poppins mb-6">
-              <span className="bg-clip-text text-transparent bg-gradient-to-b from-white to-white/80">
-                Powering Brands
+              <span className="text-black flex items-center justify-center pl-10">
+                Powering
+                {/* Reverted this image to static as per new request for full background hover */}
+                <img
+                  src="/a3997575c1030617f980951377353654bb285f96.png"
+                  alt="Brand Icon"
+                  className="inline-block w-[140px] h-[140px] sm:w-[180px] sm:h-[180px] md:w-[220px] md:h-[220px] lg:w-[260px] lg:h-[260px] object-contain align-middle mx-0"
+                />
+                Brand
               </span>
-              <br />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-merkurie-accent via-white/90 to-merkurie-coral">
-                with Star Power
+              <span className="italic text-white block leading-tight -mt-4">
+                with star power
               </span>
             </h1>
           </motion.div>
-
           {/* Subtitle */}
           <motion.div
             variants={fadeUpVariants}
@@ -187,11 +124,10 @@ const HeroSection = () => {
             animate="visible"
             transition={{ delay: 0.5 }}
           >
-            <p className="text-base sm:text-lg md:text-xl text-white/40 leading-relaxed font-light tracking-wide max-w-2xl mx-auto mb-8">
-              From A-list celebrity endorsements to seamless film integrations, we bridge the gap between brands and star power. Backed by Elohim Film Production&#39;s legacy of excellence, we deliver campaigns that create lasting impact and drive measurable results.
+            <p className="text-base sm:text-lg md:text-xl text-black leading-relaxed font-light tracking-wide max-w-2xl mx-auto mb-8">
+              From A-list celebrity endorsements to seamless film integrations, we bridge the gap between brands and star power. Backed by Elohim Film Production&apos;s legacy of excellence, we deliver campaigns that create lasting impact and drive measurable results.
             </p>
           </motion.div>
-
           {/* Buttons */}
           <motion.div
             variants={fadeUpVariants}
@@ -201,40 +137,21 @@ const HeroSection = () => {
             className="flex flex-col sm:flex-row gap-4 items-center justify-center mb-12"
           >
             <Button
-              className="bg-merkurie-accent hover:bg-merkurie-accent/90 text-merkurie-background font-semibold px-8 py-3 rounded-md text-base transition-all duration-200 flex items-center gap-2 group"
+              className="bg-black hover:bg-gray-800 text-white font-semibold px-8 py-3 rounded-full text-base transition-all duration-200 flex items-center gap-2 group"
             >
               Book a Consultation
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Button>
-
             <Button
               variant="outline"
-              className="border-2 border-white text-white hover:bg-white hover:text-merkurie-background font-semibold px-8 py-3 rounded-md text-base transition-all duration-200 flex items-center gap-2 bg-transparent"
+              className="border-2 border-black text-black hover:bg-yellow-400 hover:text-black font-semibold px-8 py-3 rounded-full text-base transition-transform duration-300 ease-in-out transform hover:scale-105 flex items-center gap-2 bg-transparent"
             >
-              <Play className="w-4 h-4" />
+              <Play className="w-4 h-4 text-black" />
               Watch Showreel
             </Button>
           </motion.div>
-
-          {/* Statistics Badge */}
-          <motion.div
-            variants={fadeUpVariants}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 0.9 }}
-            className="flex justify-center"
-          >
-            <StatisticsBadge />
-          </motion.div>
-
         </div>
       </div>
-
-      {/* Enhanced accent decorative line at bottom */}
-      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-merkurie-accent to-transparent opacity-30"></div>
-
-      {/* Additional gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-merkurie-background/20 via-transparent to-merkurie-background/10 pointer-events-none" />
     </section>
   );
 };

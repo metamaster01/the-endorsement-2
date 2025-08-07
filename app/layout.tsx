@@ -40,6 +40,7 @@ export default function RootLayout({
                         <Toaster />
                         <Sonner />
                         <ResizableNavigationExample />
+                        
                         {children}
                     </TooltipProvider>
                 </ReactQueryClientProvider>
