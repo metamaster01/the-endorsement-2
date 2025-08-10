@@ -13,18 +13,19 @@ import CelebritySection from "@/components/CelebritySection"
 
 export default function Home() {
     return (
-        <div className="min-h-screen overflow-x-hidden">
-                <HeroSection />
-                <AboutSection />
-                <ServicesSection />
-                < CelebritySection/>
-                <WhyChooseSection />
-                <IndustriesSection />
-                <TeamSection />
-                <ProcessSection />
-                <PortfolioSection />
-                <ContactSection />
-                <FooterSection />
-        </div>
+        <>
+        
+        <HeroSection />
+        <AboutSection />
+        <ServicesSection />
+        < CelebritySection/>
+        <WhyChooseSection />
+        <IndustriesSection />
+        <TeamSection />
+        <ProcessSection />
+        <PortfolioSection />
+        <ContactSection />
+        <FooterSection />
+        </>
     )
 } 

@@ -84,7 +84,7 @@ export default function ContactSection() {
           </div>
           <h2 className="text-4xl font-bold text-white mb-4">Ready to Get Started?</h2>
           <p className="text-lg text-white/70 max-w-3xl mx-auto">
-            Let's discuss how we can elevate your brand with the perfect celebrity partnership. Get in touch for a consultation.
+            Let&apos;s discuss how we can elevate your brand with the perfect celebrity partnership. Get in touch for a consultation.
           </p>
         </motion.div>
 
@@ -104,7 +104,7 @@ export default function ContactSection() {
                   <Send className="w-7 h-7 text-gray-900" />
                 </div>
                 <p className="text-gray-900 text-lg font-medium">Thanks! Your message has been sent.</p>
-                <p className="text-gray-800/80">We'll get back to you shortly.</p>
+                <p className="text-gray-800/80">We&apos;ll get back to you shortly.</p>
               </div>
             ) : (
               <form className="space-y-6" onSubmit={onSubmit}>
