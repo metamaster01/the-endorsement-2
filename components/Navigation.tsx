@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
+import Image from "next/image";
 
 const Navigation = () => {
   return (
@@ -19,7 +20,7 @@ const Navigation = () => {
         {/* Navigation Menu */}
 <div className="hidden md:flex items-center space-x-8">
   <a href="#home" className="relative group text-white text-sm font-medium transition-colors">
-    <img
+    <Image
       src="/public/components/navhome.gif"
       alt="icon"
       className="absolute top-[-28px] left-1/2 -translate-x-1/2 w-5 h-5 opacity-0 group-hover:opacity-100 group-hover:-translate-y-1 transition-all duration-300 ease-in-out"
@@ -28,7 +29,7 @@ const Navigation = () => {
   </a>
 
   <a href="#about" className="relative group text-white text-sm font-medium transition-colors">
-    <img
+    <Image
       src="/sparkle.gif"
       alt="icon"
       className="absolute top-[-28px] left-1/2 -translate-x-1/2 w-5 h-5 opacity-0 group-hover:opacity-100 group-hover:-translate-y-1 transition-all duration-300 ease-in-out"
@@ -37,7 +38,7 @@ const Navigation = () => {
   </a>
 
   <a href="#services" className="relative group text-white text-sm font-medium transition-colors">
-    <img
+    <Image
       src="/sparkle.gif"
       alt="icon"
       className="absolute top-[-28px] left-1/2 -translate-x-1/2 w-5 h-5 opacity-0 group-hover:opacity-100 group-hover:-translate-y-1 transition-all duration-300 ease-in-out"
@@ -46,7 +47,7 @@ const Navigation = () => {
   </a>
 
   <a href="#portfolio" className="relative group text-white text-sm font-medium transition-colors">
-    <img
+    <Image
       src="/sparkle.gif"
       alt="icon"
       className="absolute top-[-28px] left-1/2 -translate-x-1/2 w-5 h-5 opacity-0 group-hover:opacity-100 group-hover:-translate-y-1 transition-all duration-300 ease-in-out"
@@ -55,7 +56,7 @@ const Navigation = () => {
   </a>
 
   <a href="#team" className="relative group text-white text-sm font-medium transition-colors">
-    <img
+    <Image
       src="/sparkle.gif"
       alt="icon"
       className="absolute top-[-28px] left-1/2 -translate-x-1/2 w-5 h-5 opacity-0 group-hover:opacity-100 group-hover:-translate-y-1 transition-all duration-300 ease-in-out"
@@ -64,7 +65,7 @@ const Navigation = () => {
   </a>
 
   <a href="#contact" className="relative group text-white text-sm font-medium transition-colors">
-    <img
+    <Image
       src="/sparkle.gif"
       alt="icon"
       className="absolute top-[-28px] left-1/2 -translate-x-1/2 w-5 h-5 opacity-0 group-hover:opacity-100 group-hover:-translate-y-1 transition-all duration-300 ease-in-out"

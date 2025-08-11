@@ -4,10 +4,7 @@ import { motion } from "framer-motion"
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Play, Film } from 'lucide-react';
 import { cn } from "@/lib/utils"
-// Assuming StatisticsBadge is a separate component, not provided in the original snippet.
-// If it's not needed or not defined, you might remove its import.
-// import StatisticsBadge from './StatisticsBadge';
-
+import Image from "next/image";
 const HeroSection = () => {
   const [isSectionHovered, setIsSectionHovered] = useState(false); // New state for section hover
 
@@ -39,26 +36,16 @@ const HeroSection = () => {
         transition={{ delay: 0.8, duration: 0.5 }}
         className="absolute top-8 right-8 z-20 hidden md:block"
       >
-        <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 text-white text-sm flex flex-col items-center gap-2">
-          <span className="font-semibold">500+ Celebrity Partners</span>
-          <div className="flex -space-x-2 overflow-hidden">
-            <img
-              className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
-              src="/placeholder.svg?height=32&width=32"
-              alt="Celebrity Avatar 1"
-            />
-            <img
-              className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
-              src="/placeholder.svg?height=32&width=32"
-              alt="Celebrity Avatar 2"
-            />
-            <img
-              className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
-              src="/placeholder.svg?height=32&width=32"
-              alt="Celebrity Avatar 3"
-            />
-          </div>
-        </div>
+<div className="bg-white/10 backdrop-blur-sm  border-white/20 rounded-lg p-4 m-0 w-full h-full">
+  <Image 
+    src="/image7.png" 
+    alt="Description" 
+    fill 
+    style={{ objectFit: "cover" }} 
+  />
+</div>
+
+
       </motion.div>
       {/* Imagery: Left side - DSLR Camera */}
       <motion.img

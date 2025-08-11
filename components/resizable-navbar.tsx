@@ -375,7 +375,7 @@ export const NavbarLogo = ({ visible }: { visible?: boolean }) => {
 
 
 <div className="flex items-center gap-2">
-  <img 
+  <Image 
     src="/assets/your-logo.png"
     alt="YOUR LOGO"
     className="w-8 h-8"

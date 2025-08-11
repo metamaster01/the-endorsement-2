@@ -61,29 +61,56 @@ export default function TeamSection() {
     },
   ]
 
+  // useEffect(() => {
+  //   const observer = new IntersectionObserver(
+  //     ([entry]) => {
+  //       if (entry.isIntersecting) {
+  //         setIsVisible(true)
+  //       }
+  //     },
+  //     {
+  //       threshold: 0.2,
+  //       rootMargin: "0px 0px -50px 0px",
+  //     },
+  //   )
+
+  //   if (sectionRef.current) {
+  //     observer.observe(sectionRef.current)
+  //   }
+
+  //   return () => {
+  //     if (sectionRef.current) {
+  //       observer.unobserve(sectionRef.current)
+  //     }
+  //   }
+  // }, [])
+
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      {
-        threshold: 0.2,
-        rootMargin: "0px 0px -50px 0px",
-      },
-    )
+  const currentSection = sectionRef.current; // Store ref value at the start
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current)
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        setIsVisible(true);
       }
+    },
+    {
+      threshold: 0.2,
+      rootMargin: "0px 0px -50px 0px",
     }
-  }, [])
+  );
+
+  if (currentSection) {
+    observer.observe(currentSection);
+  }
+
+  return () => {
+    if (currentSection) {
+      observer.unobserve(currentSection);
+    }
+  };
+}, []);
+
 
   const containerVariants = {
     hidden: { opacity: 0 },

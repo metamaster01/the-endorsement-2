@@ -84,32 +84,35 @@ export default function CelebrityMarketingSection() {
     },
   ]
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-          setTimeout(() => {
-            setStartCounters(true)
-          }, 1200)
-        }
-      },
-      {
-        threshold: 0.2,
-        rootMargin: "0px 0px -100px 0px",
-      },
-    )
+ useEffect(() => {
+  const currentSection = sectionRef.current; // capture the ref value
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current)
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        setIsVisible(true);
+        setTimeout(() => {
+          setStartCounters(true);
+        }, 1200);
       }
+    },
+    {
+      threshold: 0.2,
+      rootMargin: "0px 0px -100px 0px",
     }
-  }, [])
+  );
+
+  if (currentSection) {
+    observer.observe(currentSection);
+  }
+
+  return () => {
+    if (currentSection) {
+      observer.unobserve(currentSection);
+    }
+  };
+}, []);
+
 
   return (
     <section

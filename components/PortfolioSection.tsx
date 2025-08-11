@@ -75,29 +75,57 @@ export default function PortfolioSection() {
   const filteredProjects =
     filter === "all" ? projects : projects.filter((project) => project.category === filter || project.type === filter)
 
+  // useEffect(() => {
+  //   const observer = new IntersectionObserver(
+  //     ([entry]) => {
+  //       if (entry.isIntersecting) {
+  //         setIsVisible(true)
+  //       }
+  //     },
+  //     {
+  //       threshold: 0.2,
+  //       rootMargin: "0px 0px -100px 0px",
+  //     },
+  //   )
+
+  //   if (sectionRef.current) {
+  //     observer.observe(sectionRef.current)
+  //   }
+
+  //   return () => {
+  //     if (sectionRef.current) {
+  //       observer.unobserve(sectionRef.current)
+  //     }
+  //   }
+  // }, [])
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      {
-        threshold: 0.2,
-        rootMargin: "0px 0px -100px 0px",
-      },
-    )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current)
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        setIsVisible(true);
       }
+    },
+    {
+      threshold: 0.2,
+      rootMargin: "0px 0px -100px 0px",
     }
-  }, [])
+  );
+
+  const currentSection = sectionRef.current; // ✅ Capture once
+
+  if (currentSection) {
+    observer.observe(currentSection);
+  }
+
+  return () => {
+    if (currentSection) {
+      observer.unobserve(currentSection); // ✅ Safe to use
+    }
+  };
+}, []);
+
+
+  
 
   return (
     <section
@@ -125,7 +153,7 @@ export default function PortfolioSection() {
           </h2>
           <p className="text-gray-600 text-base md:text-lg max-w-4xl mx-auto leading-relaxed">
             We bring brands closer to their audiences through powerful storytelling, strategic marketing, and meaningful
-            celebrity endorsements. Whether it's launching a campaign, building buzz, or shaping perception, our team
+            celebrity endorsements. Whether it&apos;s launching a campaign, building buzz, or shaping perception, our team
             knows how to make moments that move the market.
           </p>
         </div>

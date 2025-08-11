@@ -163,7 +163,7 @@ export default function ConsultationDialog({ isOpen, onClose, triggerButton }: C
                         <CheckCircle className="w-16 h-16 text-yellow-500 mx-auto mb-4" />
                         <h2 className="text-2xl font-bold text-white mb-3">Thank You!</h2>
                         <p className="text-gray-300 mb-6">
-                          Your consultation request has been submitted successfully. We'll get back to you within 30
+                          Your consultation request has been submitted successfully. We&apos;ll get back to you within 30
                           minutes!
                         </p>
                         <Button
@@ -189,7 +189,7 @@ export default function ConsultationDialog({ isOpen, onClose, triggerButton }: C
                           </div>
                           <div className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-black px-3 py-1.5 rounded-lg mb-2 font-semibold text-xs">
                             <Zap className="w-3 h-3 inline mr-1" />
-                            Boost Your Brand's Reach with Top Celebrities & Influencers!
+                            Boost Your Brand&apos;s Reach with Top Celebrities & Influencers!
                           </div>
                           <p className="text-yellow-300 font-medium text-xs">
                             Share Your Details & Get a Call Within 30 Mins!

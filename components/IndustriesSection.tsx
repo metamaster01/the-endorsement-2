@@ -25,30 +25,32 @@ export default function IndustriesSection() {
     { icon: Trophy, title: "Sports & Fitness", delay: "800ms" },
     { icon: GraduationCap, title: "Education", delay: "900ms" },
   ]
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      {
-        threshold: 0.2,
-        rootMargin: "0px 0px -50px 0px",
-      },
-    )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current)
+useEffect(() => {
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        setIsVisible(true);
       }
+    },
+    {
+      threshold: 0.2,
+      rootMargin: "0px 0px -50px 0px",
     }
-  }, [])
+  );
+
+  const currentSection = sectionRef.current; // ✅ Capture once
+
+  if (currentSection) {
+    observer.observe(currentSection);
+  }
+
+  return () => {
+    if (currentSection) {
+      observer.unobserve(currentSection); // ✅ Always the same reference
+    }
+  };
+}, []);
+
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
