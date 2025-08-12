@@ -10,7 +10,8 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Card, CardContent } from "@/components/ui/card"
-import { Shield, Star, Zap, CheckCircle, X } from "lucide-react"
+import { Shield, Star, Zap, CheckCircle, X } from 'lucide-react'
+import { getSupabaseClient } from "@/lib/supabase"
 
 interface FormData {
   name: string
@@ -26,9 +27,27 @@ interface ConsultationDialogProps {
   isOpen: boolean
   onClose: () => void
   triggerButton?: React.ReactNode
+  onSuccess?: () => void
 }
 
-export default function ConsultationDialog({ isOpen, onClose, triggerButton }: ConsultationDialogProps) {
+function mapBudgetToNumber(label: string): number | null {
+  switch (label) {
+    case "₹50K-":
+      return 50000
+    case "₹50K-₹1L":
+      return 100000
+    case "₹1L-₹5L":
+      return 500000
+    case "₹5L-₹25L":
+      return 2500000
+    case "₹25L+":
+      return 2500000
+    default:
+      return null
+  }
+}
+
+export default function ConsultationDialog({ isOpen, onClose, triggerButton, onSuccess }: ConsultationDialogProps) {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     company: "",
@@ -41,6 +60,7 @@ export default function ConsultationDialog({ isOpen, onClose, triggerButton }: C
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [errors, setErrors] = useState<Partial<FormData>>({})
+  const [submitError, setSubmitError] = useState<string | null>(null)
 
   const budgetOptions = [
     { value: "₹50K-", label: "₹50K-" },
@@ -83,15 +103,39 @@ export default function ConsultationDialog({ isOpen, onClose, triggerButton }: C
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setSubmitError(null)
     if (!validateForm()) return
+
+    const supabase = getSupabaseClient()
+
+    const numericPhone = Number(formData.phone.replace(/\D/g, ""))
+    const numericBudget = mapBudgetToNumber(formData.budget)
 
     setIsSubmitting(true)
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000))
+      const { error } = await supabase.from("consultation").insert([
+        {
+          name: formData.name.trim(),
+          company: formData.company.trim(),
+          job: formData.job.trim(),
+          phone: isNaN(numericPhone) ? null : numericPhone,
+          email: formData.email.trim(),
+          service: formData.service,
+          budget: numericBudget,
+        },
+      ])
+
+      if (error) {
+        setSubmitError("Failed to submit. Please try again.")
+        console.error(error)
+        return
+      }
+
       setIsSubmitted(true)
-    } catch (error) {
-      console.error("Error submitting form:", error)
-      alert("There was an error submitting your form. Please try again.")
+      onSuccess?.()
+    } catch (err) {
+      console.error("Unexpected error:", err)
+      setSubmitError("Unexpected error. Please try again.")
     } finally {
       setIsSubmitting(false)
     }
@@ -116,6 +160,7 @@ export default function ConsultationDialog({ isOpen, onClose, triggerButton }: C
     })
     setIsSubmitted(false)
     setErrors({})
+    setSubmitError(null)
   }
 
   const closeDialog = () => {
@@ -127,10 +172,8 @@ export default function ConsultationDialog({ isOpen, onClose, triggerButton }: C
 
   return (
     <>
-      {/* Trigger Button (if provided) */}
       {triggerButton}
 
-      {/* Consultation Dialog */}
       <AnimatePresence>
         {isOpen && (
           <Dialog open={isOpen} onOpenChange={closeDialog}>
@@ -142,7 +185,6 @@ export default function ConsultationDialog({ isOpen, onClose, triggerButton }: C
                 transition={{ duration: 0.4, ease: [0.25, 0.25, 0.25, 0.75] }}
                 className="relative"
               >
-                {/* Close Button */}
                 <motion.button
                   onClick={closeDialog}
                   className="absolute -top-3 -right-3 z-50 w-8 h-8 bg-yellow-500 hover:bg-yellow-600 rounded-full flex items-center justify-center transition-colors duration-200 shadow-lg"
@@ -175,7 +217,6 @@ export default function ConsultationDialog({ isOpen, onClose, triggerButton }: C
                       </motion.div>
                     ) : (
                       <>
-                        {/* Header - Compact */}
                         <motion.div
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
@@ -191,21 +232,12 @@ export default function ConsultationDialog({ isOpen, onClose, triggerButton }: C
                             <Zap className="w-3 h-3 inline mr-1" />
                             Boost Your Brand&apos;s Reach with Top Celebrities & Influencers!
                           </div>
-                          <p className="text-yellow-300 font-medium text-xs">
-                            Share Your Details & Get a Call Within 30 Mins!
-                          </p>
+                          <p className="text-yellow-300 font-medium text-xs">Share Your Details & Get a Call Within 30 Mins!</p>
                         </motion.div>
 
-                        {/* Form - Compact */}
                         <form onSubmit={handleSubmit} className="space-y-3">
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            {/* Name */}
-                            <motion.div
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: 0.3 }}
-                              className="space-y-1"
-                            >
+                            <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="space-y-1">
                               <Label htmlFor="name" className="text-white font-medium text-sm">
                                 Name *
                               </Label>
@@ -220,13 +252,7 @@ export default function ConsultationDialog({ isOpen, onClose, triggerButton }: C
                               {errors.name && <p className="text-red-400 text-xs">{errors.name}</p>}
                             </motion.div>
 
-                            {/* Company */}
-                            <motion.div
-                              initial={{ opacity: 0, x: 20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: 0.4 }}
-                              className="space-y-1"
-                            >
+                            <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="space-y-1">
                               <Label htmlFor="company" className="text-white font-medium text-sm">
                                 Company Name *
                               </Label>
@@ -241,13 +267,7 @@ export default function ConsultationDialog({ isOpen, onClose, triggerButton }: C
                               {errors.company && <p className="text-red-400 text-xs">{errors.company}</p>}
                             </motion.div>
 
-                            {/* Job Title */}
-                            <motion.div
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: 0.5 }}
-                              className="space-y-1"
-                            >
+                            <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="space-y-1">
                               <Label htmlFor="job" className="text-white font-medium text-sm">
                                 Job Title *
                               </Label>
@@ -262,19 +282,13 @@ export default function ConsultationDialog({ isOpen, onClose, triggerButton }: C
                               {errors.job && <p className="text-red-400 text-xs">{errors.job}</p>}
                             </motion.div>
 
-                            {/* Mobile Number */}
-                            <motion.div
-                              initial={{ opacity: 0, x: 20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: 0.6 }}
-                              className="space-y-1"
-                            >
+                            <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="space-y-1">
                               <Label htmlFor="phone" className="text-white font-medium text-sm">
                                 Mobile Number *
                               </Label>
                               <div className="flex">
                                 <div className="bg-white/10 border border-yellow-500/30 rounded-l-md px-2 py-2 text-white border-r-0 text-sm h-8 flex items-center">
-                                  🇮🇳 +91
+                                  {'🇮🇳 +91'}
                                 </div>
                                 <Input
                                   id="phone"
@@ -288,13 +302,7 @@ export default function ConsultationDialog({ isOpen, onClose, triggerButton }: C
                               {errors.phone && <p className="text-red-400 text-xs">{errors.phone}</p>}
                             </motion.div>
 
-                            {/* Email */}
-                            <motion.div
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: 0.7 }}
-                              className="space-y-1"
-                            >
+                            <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="space-y-1">
                               <Label htmlFor="email" className="text-white font-medium text-sm">
                                 Email ID *
                               </Label>
@@ -309,13 +317,7 @@ export default function ConsultationDialog({ isOpen, onClose, triggerButton }: C
                               {errors.email && <p className="text-red-400 text-xs">{errors.email}</p>}
                             </motion.div>
 
-                            {/* Service Type */}
-                            <motion.div
-                              initial={{ opacity: 0, x: 20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: 0.8 }}
-                              className="space-y-1"
-                            >
+                            <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="space-y-1">
                               <Label htmlFor="service" className="text-white font-medium text-sm">
                                 Service Type *
                               </Label>
@@ -328,11 +330,7 @@ export default function ConsultationDialog({ isOpen, onClose, triggerButton }: C
                                 </SelectTrigger>
                                 <SelectContent className="bg-gray-900 border-yellow-500/30">
                                   {serviceOptions.map((service) => (
-                                    <SelectItem
-                                      key={service}
-                                      value={service}
-                                      className="text-white hover:bg-yellow-500/20"
-                                    >
+                                    <SelectItem key={service} value={service} className="text-white hover:bg-yellow-500/20">
                                       {service}
                                     </SelectItem>
                                   ))}
@@ -342,13 +340,7 @@ export default function ConsultationDialog({ isOpen, onClose, triggerButton }: C
                             </motion.div>
                           </div>
 
-                          {/* Budget - Compact */}
-                          <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.9 }}
-                            className="space-y-1"
-                          >
+                          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="space-y-1">
                             <Label className="text-white font-medium text-xs">Budget *</Label>
                             <RadioGroup
                               value={formData.budget}
@@ -359,8 +351,9 @@ export default function ConsultationDialog({ isOpen, onClose, triggerButton }: C
                                 <motion.div
                                   key={option.value}
                                   initial={{ opacity: 0, scale: 0.8 }}
-                                  animate={{ opacity: 1, scale: 1 }}
-                                  transition={{ delay: 1 + index * 0.05 }}
+                                  whileInView={{ opacity: 1, scale: 1 }}
+                                  viewport={{ once: true }}
+                                  transition={{ delay: 0.2 + index * 0.05 }}
                                   className="flex items-center"
                                 >
                                   <RadioGroupItem value={option.value} id={option.value} className="sr-only" />
@@ -380,13 +373,11 @@ export default function ConsultationDialog({ isOpen, onClose, triggerButton }: C
                             {errors.budget && <p className="text-red-400 text-xs">{errors.budget}</p>}
                           </motion.div>
 
-                          {/* Submit Button */}
-                          <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 1.2 }}
-                            className="pt-2"
-                          >
+                          {submitError && (
+                            <p className="text-red-400 text-xs text-center pt-1">{submitError}</p>
+                          )}
+
+                          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="pt-2">
                             <Button
                               type="submit"
                               disabled={isSubmitting}
@@ -406,16 +397,10 @@ export default function ConsultationDialog({ isOpen, onClose, triggerButton }: C
                             </Button>
                           </motion.div>
 
-                          {/* Security Message */}
-                          <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 1.3 }}
-                            className="text-center pt-1"
-                          >
+                          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-center pt-1">
                             <p className="text-yellow-300 text-xs flex items-center justify-center">
                               <Shield className="w-3 h-3 mr-1" />
-                              Your information is safe with us 🔒
+                              {'Your information is safe with us 🔒'}
                             </p>
                           </motion.div>
                         </form>

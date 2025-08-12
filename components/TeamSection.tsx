@@ -181,7 +181,7 @@ export default function TeamSection() {
             transform: "rotate(52deg)",
           }}
         >
-          <Image src="/image.png" alt="Decorative arrow" fill className="object-contain" />
+          <Image src="/image4.png" alt="Decorative arrow" fill className="object-contain" />
         </motion.div>
       </div>
 

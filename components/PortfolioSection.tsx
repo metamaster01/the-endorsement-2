@@ -130,6 +130,7 @@ export default function PortfolioSection() {
   return (
     <section
       ref={sectionRef}
+      id="portfolio"
       className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-gray-100 relative overflow-hidden"
     >
       {/* Background Decorative Elements */}
